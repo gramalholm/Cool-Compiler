@@ -1,0 +1,14 @@
+[
+{
+  "directory": "C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/build",
+  "command": "C:\\PROGRA~1\\MICROS~4\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DFMT_SHARED -I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\headers\" -I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\src\" -I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\src\\lexer\" -external:I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\build\\vcpkg_installed\\x64-windows\\include\" -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /utf-8 /FoCMakeFiles\\cool-compiler.dir\\main.cpp.obj /FdCMakeFiles\\cool-compiler.dir\\ /FS -c \"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\main.cpp\"",
+  "file": "C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/main.cpp",
+  "output": "C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/build/CMakeFiles/cool-compiler.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/build",
+  "command": "C:\\PROGRA~1\\MICROS~4\\18\\COMMUN~1\\VC\\Tools\\MSVC\\1450~1.357\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -DFMT_SHARED -I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\headers\" -I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\src\" -I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\src\\lexer\" -external:I\"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\build\\vcpkg_installed\\x64-windows\\include\" -external:W0 /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /utf-8 /FoCMakeFiles\\cool-compiler.dir\\src\\lexer\\token.cpp.obj /FdCMakeFiles\\cool-compiler.dir\\ /FS -c \"C:\\Users\\Gabriel Ramalho\\Projetos\\Cool-Compiler\\src\\lexer\\token.cpp\"",
+  "file": "C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/src/lexer/token.cpp",
+  "output": "C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/build/CMakeFiles/cool-compiler.dir/src/lexer/token.cpp.obj"
+}
+]

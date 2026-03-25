@@ -1,0 +1,3 @@
+C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/build/CMakeFiles/cool-compiler.dir
+C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/build/CMakeFiles/edit_cache.dir
+C:/Users/Gabriel Ramalho/Projetos/Cool-Compiler/build/CMakeFiles/rebuild_cache.dir
