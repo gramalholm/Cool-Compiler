@@ -2,6 +2,7 @@
 #define LEXER_H
 #include <string>
 #include <unordered_map>
+#include <memory>
 using namespace std;
 
 enum class lextoken_type {
@@ -97,12 +98,14 @@ class numToken : public Lextoken {
 
 class Lexer {
     private:
-        int line_num;
+        int line_num = 1;
         char peek;
         unordered_map<string, lextoken_type> str_table;
     public:
         int get_line_num() const;
-        Lextoken* scan();
+        //polimorfimso para retornar diferentes tipos de tokens
+        Lextoken* is_reserved(string str);
+        std::unique_ptr<Lextoken> scan();
         Lexer();
 };
 

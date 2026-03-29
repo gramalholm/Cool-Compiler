@@ -3,10 +3,12 @@
 #include <sstream>
 using std::cin;
 using std::cout;
-/*
-    muitos comentarios por que estou codando e digitando para eu entender oq to fazendo e ver se faz sentindo e ta certo.
-*/
 
+/*
+Gabriel:
+    muitos comentarios por que estou codando e digitando para eu entender oq to fazendo e ver se faz sentindo e ta certo.
+    Alem disso comentarios para que o Léo entenda o que eu fiz e o que eu to fazendo, e para que ele possa me ajudar a corrigir os erros e melhorar o código.
+*/
 
 Lexer::Lexer() {
     str_table["class"] = lextoken_type::class_token;
@@ -33,64 +35,25 @@ Lexer::Lexer() {
 Lextoken* Lexer::is_reserved(string str){
     auto str_iterator = str_table.find(str);
     
-    /*
-        Se o lexema for encontrado na tabela, retorna o strtoken
-        printando só por debbug, depois retirar 
-    */
-
     if(str_iterator != str_table.end()){
-        if(str_iterator->second == lextoken_type::class_token)
-            cout << "class token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::then_token)
-            cout << "then token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::fi_token)
-            cout << "fi token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::in_kw_token)
-            cout << "in_kw token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::inherits_token)
-            cout << "inherits token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::isvoid_token)
-            cout << "isvoid token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::let_token)
-            cout << "let token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::loop_token)
-            cout << "loop token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::case_token)
-            cout << "case token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::esac_token)
-            cout << "esac token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::new_token)
-            cout << "new token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::of_token)
-            cout << "of token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::not_token)
-            cout << "not token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::pool_token)
-            cout << "pool token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::if_token)
-            cout << "if token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::else_token)
-            cout << "else token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::while_token)
-            cout << "while token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::true_token)
-            cout << "true token encontrado" << endl;
-        else if(str_iterator->second == lextoken_type::false_token)
-            cout << "false token encontrado" << endl;
-        else
-            cout << "identificador ja registrado encontrado" << endl;
-            
-        // Retorna o strtoken do item encontrado na tabela.
         return new StrToken(str_iterator->second, str);
     }   
 
     // Se o Identificador não for encontrado na tabela de símbolos, adiciona-o como um novo token de identificador.
-    str_table[str] = lextoken_type::identifier_token; // Adiciona o identificador à tabela de símbolos.
-    return new StrToken(lextoken_type::identifier_token, str); // Retorna um token de identificador para o novo identificador encontrado.
+    str_table[str] = lextoken_type::identifier_token; 
+    return new StrToken(lextoken_type::identifier_token, str);
 }
 
-//usar smart-pointers para evitar vazamento de memória
-//polimorfismo para retornar diferentes tipos de tokens
+/*
+Gabriel:
+    Usando ponteiros para retornar os tokens condizendo com o polimorfismo 
+    e evitando que a string ou o numero de strtoken ou o numero do num token sejam perdidos.
+    OBS: Estou usando o smart-pointer unique_ptr para evitar vazamento de memória 
+
+    Esse método le os caracteres da entrada e faz a analise lexica, ou seja, tira espaços em branco,
+    reconhece operadores, palavras reservadas, identificadores, numeros e strings, e retorna o token correspondente.
+*/
+
 std::unique_ptr<Lextoken> Lexer::scan() {
 
     // retirar espaços em branco
