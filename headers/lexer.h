@@ -31,7 +31,7 @@ enum class lextoken_type {
     int_token,
     string_token,
     bool_token,
-    
+
     //operadores e pontuacao
     plus_token, // +
     minus_token, // -
@@ -74,6 +74,7 @@ class Lextoken{
         // Ler os caracteres e no final criar o token com tipo, lexema e linha.
         Lextoken(lextoken_type t);
         lextoken_type get_type() const;
+        virtual ~Lextoken() = default;
 };
 
 //palavras reservadas, identificadores
@@ -100,7 +101,8 @@ class Lexer {
         char peek;
         unordered_map<string, lextoken_type> str_table;
     public:
-        Lextoken scan();
+        int get_line_num() const;
+        Lextoken* scan();
         Lexer();
 };
 
