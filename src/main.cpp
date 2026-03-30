@@ -1,4 +1,4 @@
-#include "headers/lexer.h"
+#include "lexer.h"
 #include <iostream>
 using std::cout;
 

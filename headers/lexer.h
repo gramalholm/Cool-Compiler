@@ -71,6 +71,7 @@ enum class lextoken_type {
 class Lextoken{
     private:
         lextoken_type type;
+        
     public:
         Lextoken(lextoken_type t);
         lextoken_type get_type() const;
@@ -81,6 +82,7 @@ class Lextoken{
 class StrToken : public Lextoken {
     private:
         std::string token_str;
+
     public:
         StrToken(lextoken_type t, std::string str);
         const std::string& get_token_str() const;
@@ -90,6 +92,7 @@ class StrToken : public Lextoken {
 class numToken : public Lextoken {
     private:
         int token_num;
+
     public:
         numToken(lextoken_type t, int num);
         int get_token_num() const;
@@ -102,7 +105,7 @@ class Lexer {
         bool stream_initialized = false;
         std::ifstream file;
         unordered_map<string, lextoken_type> str_table;
-        
+
     public:
         string type_to_string(lextoken_type t);
         int get_line_num() const;

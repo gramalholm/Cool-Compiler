@@ -7,7 +7,7 @@ find_package(fmt CONFIG REQUIRED)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(cool-compiler
-    main.cpp
+    src/main.cpp
     src/lexer/lexer.cpp
     headers/lexer.h
 )
