@@ -1,4 +1,0 @@
-# ninja log v7
-2	523	7966055841503080	CMakeFiles/cool-compiler.dir/main.cpp.obj	31d3b12a7c3f89b7
-9	579	7966055841563091	CMakeFiles/cool-compiler.dir/src/lexer/lexer.cpp.obj	1dba0565450dca8f
-579	1223	7966055847273714	cool-compiler.exe	f2d5c2f2a61f5fcf
