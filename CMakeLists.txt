@@ -8,8 +8,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(cool-compiler
     main.cpp
-    src/lexer/token.cpp
-    headers/token.h
+    src/lexer/lexer.cpp
+    headers/lexer.h
 )
 
 target_include_directories(cool-compiler PRIVATE

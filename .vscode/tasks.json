@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake: Configure (preset default)",
+      "type": "shell",
+      "command": "cmake --preset default",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake: Build (preset default)",
+      "type": "shell",
+      "command": "cmake --build --preset default --config Debug",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ],
+      "dependsOn": "CMake: Configure (preset default)",
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "Run: cool-compiler",
+      "type": "shell",
+      "command": ".\\build\\Debug\\cool-compiler.exe",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "CMake: Build (preset default)",
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build and Run: cool-compiler",
+      "type": "shell",
+      "command": "echo Build and run completed.",
+      "dependsOn": "Run: cool-compiler",
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}

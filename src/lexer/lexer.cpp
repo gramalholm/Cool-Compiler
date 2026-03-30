@@ -1,6 +1,7 @@
 #include "lexer.h"
 #include <iostream>
 #include <sstream>
+#include <fstream>
 using std::cin;
 using std::cout;
 
@@ -11,6 +12,8 @@ Gabriel:
 */
 
 Lexer::Lexer() {
+    file.open("teste3.txt");
+
     str_table["class"] = lextoken_type::class_token;
     str_table["then"] = lextoken_type::then_token;
     str_table["fi"] = lextoken_type::fi_token;
@@ -39,7 +42,6 @@ Lextoken* Lexer::is_reserved(string str){
         return new StrToken(str_iterator->second, str);
     }   
 
-    // Se o Identificador não for encontrado na tabela de símbolos, adiciona-o como um novo token de identificador.
     str_table[str] = lextoken_type::identifier_token; 
     return new StrToken(lextoken_type::identifier_token, str);
 }
@@ -55,104 +57,162 @@ Gabriel:
 */
 
 std::unique_ptr<Lextoken> Lexer::scan() {
+    if (!file.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo!" << std::endl;
+        return std::make_unique<Lextoken>(lextoken_type::eof_token);
+    }
 
-    // retirar espaços em branco
+    if (!stream_initialized) {
+        peek = file.get();
+        stream_initialized = true;
+    }
+
     while(isspace(peek)) {
         if(peek == '\n')
             line_num += 1;
-        peek = cin.get();
+        peek = file.get();
     }
 
-    if(peek == '*'){
-        peek = cin.get();
-        while(peek != '*'){
-            if(peek == EOF){
-                return std::make_unique<Lextoken>(lextoken_type::eof_token); // Retorna um token EOF se o final do arquivo for alcançado antes de fechar o comentário.
+    //cometarios inline
+    if(peek == '-'){
+        peek = file.get();
+        if(peek == '-'){
+            while(peek != '\n' && peek != EOF){
+                peek = file.get();
             }
-            peek = cin.get();
+            return scan(); 
+        }
+        else{
+            return std::make_unique<Lextoken>(lextoken_type::minus_token);
         }
     }
 
-    //verifica se são operadores ou pontuação, se for, retorna o token correspondente
+    if(peek == '(' && file.peek() == '*'){
+        file.get(); 
+        int depth = 1;
+
+        while(depth > 0){
+            peek = file.get();
+
+            if(peek == EOF){
+                return std::make_unique<Lextoken>(lextoken_type::eof_token);
+            }
+
+            if(peek == '\n'){
+                line_num += 1;
+            }
+
+            if(peek == '(' && file.peek() == '*'){
+                file.get(); 
+                depth++;
+            }
+            else if(peek == '*' && file.peek() == ')'){
+                file.get(); 
+                depth--;
+            }
+        }
+
+        peek = file.get();
+        return scan();
+    }
+
+    //verifica se são operadores ou pontuação
     switch (peek)
     {
     case '+':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::plus_token);
     case '-':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::minus_token);
     case '*':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::star_token);
     case '/':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::slash_token);
     case '.':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::dot_token);
     case '@':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::at_token);
     case '<':
-        peek = cin.get();
+        peek = file.get();
         if(peek == '-'){
-            peek = cin.get();
+            peek = file.get();
             return std::make_unique<Lextoken>(lextoken_type::assign_token);
         }
         else if(peek == '='){
-            peek = cin.get();
+            peek = file.get();
             return std::make_unique<Lextoken>(lextoken_type::less_equal_token);
         }
         else
             return std::make_unique<Lextoken>(lextoken_type::less_token);
     case '>':
-        peek = cin.get();
+        peek = file.get();
         if(peek == '='){
-            peek = cin.get();
+            peek = file.get();
             return std::make_unique<Lextoken>(lextoken_type::greater_equal_token);
         }
         else
             return std::make_unique<Lextoken>(lextoken_type::greater_token);
     case '=':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::equal_token);
     case '~':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::tilde_token);
     case ';':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::semicolon_token);
     case ',':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::comma_token);
+    case ':':
+        peek = file.get();
+        return std::make_unique<Lextoken>(lextoken_type::colon_token);
     case '(':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::lparen_token);
     case ')':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::rparen_token);
     case '{':
-        peek = cin.get();
+        peek = file.get();
         return std::make_unique<Lextoken>(lextoken_type::lbrace_token);
     case '}':
-        peek = cin.get();   
+        peek = file.get();   
         return std::make_unique<Lextoken>(lextoken_type::rbrace_token);
         
     default:
         break;
     }
 
-    if(isalpha(peek)){
-        string aux_str; 
-        //ler caracter, verificar se é uma letra, se for, ler lexema completo, verificar se é palavra reservada ou identificador, criar token correspondente
+    // para strings do tipo "frase blablabla"
+    if(peek == '"'){
+        string aux_str;
+        peek = file.get();
+        while(peek != '"'){
+            if(peek == EOF){
+                return std::make_unique<Lextoken>(lextoken_type::eof_token);
+            }
+            aux_str += peek;
+            peek = file.get();
+        }
+        peek = file.get();
+        return std::make_unique<StrToken>(lextoken_type::string_token, aux_str);
+    }
+
+    if(isalpha(peek) || peek == '_'){
+        string aux_str;
+
         do{
             aux_str += peek;
-            peek = cin.get();
+            peek = file.get();
         }
-        while(isalpha(peek));
+        while(isalnum(peek) || peek == '_'); 
 
-        // Verificar se o lexema é uma palavra reservada ou um identificador e retornar o token correspondente.
         return std::unique_ptr<Lextoken>(is_reserved(aux_str));
     }
 
@@ -160,12 +220,11 @@ std::unique_ptr<Lextoken> Lexer::scan() {
         int aux_num = 0;
         do
         {
-            aux_num = aux_num * 10 + (peek - '0'); // Converte o caractere para um número inteiro.
-            peek = cin.get();
+            aux_num = aux_num * 10 + (peek - '0'); 
+            peek = file.get();
         } 
         while (isdigit(peek));
 
-        // Retorna um token numérico com o valor lido.
         return std::make_unique<numToken>(lextoken_type::int_token, aux_num);
         
     }
@@ -175,7 +234,7 @@ std::unique_ptr<Lextoken> Lexer::scan() {
     }
 
     // Se o caractere não for reconhecido, retorna um token de erro.
-    peek = cin.get();
+    peek = file.get();
     return std::make_unique<Lextoken>(lextoken_type::error_token);
 }
 
@@ -185,6 +244,68 @@ int Lexer::get_line_num() const {
 
 Lextoken::Lextoken(lextoken_type t): type(t) {}
 
+lextoken_type Lextoken::get_type() const {
+    return type;
+}
+
 StrToken::StrToken(lextoken_type t, std::string str): Lextoken(t), token_str(str) {}
 
+const std::string& StrToken::get_token_str() const {
+    return token_str;
+}
+
 numToken::numToken(lextoken_type t, int num): Lextoken(t), token_num(num) {}
+
+int numToken::get_token_num() const {
+    return token_num;
+}
+
+string Lexer::type_to_string(lextoken_type t) {
+   switch (t)
+   {
+   case lextoken_type::plus_token:
+    return "+";
+   case lextoken_type::minus_token:
+    return "-";
+   case lextoken_type::star_token:
+    return "*";
+   case lextoken_type::slash_token:
+    return "/";
+   case lextoken_type::dot_token:
+    return ".";
+   case lextoken_type::at_token:
+    return "@";
+   case lextoken_type::assign_token:
+    return "<-";
+   case lextoken_type::equal_token:
+    return "=";
+   case lextoken_type::greater_token:
+    return ">";
+   case lextoken_type::less_token:
+    return "<";
+   case lextoken_type::greater_equal_token:
+    return ">=";
+   case lextoken_type::less_equal_token:
+    return "<=";
+   case lextoken_type::not_equal_token:
+    return "!=";
+   case lextoken_type::semicolon_token:
+    return ";";
+   case lextoken_type::comma_token:
+    return ",";
+   case lextoken_type::colon_token:
+    return ":";
+   case lextoken_type::tilde_token:
+    return "~";
+   case lextoken_type::lparen_token:
+    return "(";
+   case lextoken_type::rparen_token:
+    return ")";
+   case lextoken_type::lbrace_token:
+    return "{";
+   case lextoken_type::rbrace_token:
+    return "}";
+   default:
+    throw std::invalid_argument("O token não é um operador ou pontuação.");
+   }
+}

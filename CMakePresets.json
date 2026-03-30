@@ -4,12 +4,21 @@
     {
       "name": "default",
       "displayName": "MSVC + vcpkg",
-      "generator": "Ninja",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
       "binaryDir": "build",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "VCPKG_TARGET_TRIPLET": "x64-windows"
       }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "default",
+      "displayName": "Build default",
+      "configurePreset": "default",
+      "jobs": 0
     }
   ]
 }

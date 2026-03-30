@@ -1,4 +1,6 @@
 {
+  "name": "cool-compiler",
+  "version": "1.0.0",
   "dependencies": [
     "fmt"
   ]

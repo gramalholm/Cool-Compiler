@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <fstream>
 using namespace std;
 
 enum class lextoken_type {
@@ -50,9 +51,8 @@ enum class lextoken_type {
     not_equal_token, // !=
 
     semicolon_token, // ;
-    dot_token, // .
-    at_token, // @
     comma_token, // ,
+    colon_token, // :
     tilde_token, // ~
     lparen_token, // (
     rparen_token, // )
@@ -72,7 +72,6 @@ class Lextoken{
     private:
         lextoken_type type;
     public:
-        // Ler os caracteres e no final criar o token com tipo, lexema e linha.
         Lextoken(lextoken_type t);
         lextoken_type get_type() const;
         virtual ~Lextoken() = default;
@@ -99,11 +98,14 @@ class numToken : public Lextoken {
 class Lexer {
     private:
         int line_num = 1;
-        char peek;
+        int peek = ' ';
+        bool stream_initialized = false;
+        std::ifstream file;
         unordered_map<string, lextoken_type> str_table;
+        
     public:
+        string type_to_string(lextoken_type t);
         int get_line_num() const;
-        //polimorfimso para retornar diferentes tipos de tokens
         Lextoken* is_reserved(string str);
         std::unique_ptr<Lextoken> scan();
         Lexer();
