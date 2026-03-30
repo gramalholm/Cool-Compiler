@@ -1,0 +1,5 @@
+build/
+.vscode/
+vcpkg_installed/
+vcpkg.json
+vcpkg-configuration.json
