@@ -109,7 +109,6 @@ class Lexer {
     public:
         string type_to_string(lextoken_type t);
         int get_line_num() const;
-        Lextoken* is_reserved(string str);
         std::unique_ptr<Lextoken> scan();
         Lexer();
 };

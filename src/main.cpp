@@ -22,8 +22,11 @@ int main(){
             if(s->get_type() == lextoken_type::identifier_token){
                 cout << "Token identificador: " << s->get_token_str() << endl;
             }
-            else{
+            else if(s->get_type() == lextoken_type::string_token){
                 cout << "Token string:  " << s->get_token_str() << endl;
+            }
+            else{
+                cout << "Token palavra reservada:  " << s->get_token_str() << endl;
             }
         } else if( auto n = dynamic_cast<numToken*>(token.get())){
             cout << "Token tipo numero: " << n->get_token_num() << endl;

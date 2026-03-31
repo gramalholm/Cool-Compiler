@@ -35,17 +35,6 @@ Lexer::Lexer() {
     str_table["false"] = lextoken_type::false_token;
 }
 
-Lextoken* Lexer::is_reserved(string str){
-    auto str_iterator = str_table.find(str);
-    
-    if(str_iterator != str_table.end()){
-        return new StrToken(str_iterator->second, str);
-    }   
-
-    str_table[str] = lextoken_type::identifier_token; 
-    return new StrToken(lextoken_type::identifier_token, str);
-}
-
 /*
 Gabriel:
     Usando ponteiros para retornar os tokens condizendo com o polimorfismo 
@@ -87,6 +76,7 @@ std::unique_ptr<Lextoken> Lexer::scan() {
         }
     }
 
+    //comentarios aninhados
     if(peek == '(' && file.peek() == '*'){
         file.get(); 
         int depth = 1;
@@ -213,7 +203,14 @@ std::unique_ptr<Lextoken> Lexer::scan() {
         }
         while(isalnum(peek) || peek == '_'); 
 
-        return std::unique_ptr<Lextoken>(is_reserved(aux_str));
+        auto str_iterator = str_table.find(aux_str);
+    
+        if(str_iterator != str_table.end()){
+             return std::make_unique<StrToken>(str_iterator->second, aux_str);
+        }   
+
+        str_table[aux_str] = lextoken_type::identifier_token; 
+        return std::make_unique<StrToken>(lextoken_type::identifier_token, aux_str);
     }
 
     if(isdigit(peek)){
@@ -230,10 +227,9 @@ std::unique_ptr<Lextoken> Lexer::scan() {
     }
 
     if(peek == EOF){
-        return std::make_unique<Lextoken>(lextoken_type::eof_token); // Retorna um token EOF se o final do arquivo for alcançado.
+        return std::make_unique<Lextoken>(lextoken_type::eof_token); 
     }
 
-    // Se o caractere não for reconhecido, retorna um token de erro.
     peek = file.get();
     return std::make_unique<Lextoken>(lextoken_type::error_token);
 }
@@ -260,6 +256,7 @@ int numToken::get_token_num() const {
     return token_num;
 }
 
+//so para poder printar bonitinho os operadores e pontuações.
 string Lexer::type_to_string(lextoken_type t) {
    switch (t)
    {
