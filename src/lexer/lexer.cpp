@@ -1,6 +1,5 @@
 #include "lexer.h"
 #include <iostream>
-#include <sstream>
 #include <fstream>
 using std::cin;
 using std::cout;
@@ -63,7 +62,7 @@ std::unique_ptr<Lextoken> Lexer::scan() {
     }
 
     //cometarios inline
-    if(peek == '-'){
+    if(peek == '-'){ 
         peek = file.get();
         if(peek == '-'){
             while(peek != '\n' && peek != EOF){
@@ -222,7 +221,7 @@ std::unique_ptr<Lextoken> Lexer::scan() {
         } 
         while (isdigit(peek));
 
-        return std::make_unique<numToken>(lextoken_type::int_token, aux_num);
+        return std::make_unique<NumToken>(lextoken_type::int_token, aux_num);
         
     }
 
@@ -250,9 +249,9 @@ const std::string& StrToken::get_token_str() const {
     return token_str;
 }
 
-numToken::numToken(lextoken_type t, int num): Lextoken(t), token_num(num) {}
+NumToken::NumToken(lextoken_type t, int num): Lextoken(t), token_num(num) {}
 
-int numToken::get_token_num() const {
+int NumToken::get_token_num() const {
     return token_num;
 }
 

@@ -16,7 +16,7 @@ class Main inherits IO {
 	{
             i <- ~1;
 	    out_string("Please enter a string:\n");
-	    if pal(in_string())
+	    if x@A.pal(in_string())
 	    then out_string("That was a palindrome.\n")
 	    else out_string("That was not a palindrome.\n")
 	    fi;
