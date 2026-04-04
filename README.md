@@ -21,9 +21,9 @@
 ## 🚧 Development Phases
 
 - [x] [Lexical Analysis](#1-Lexical-Analisys)
-- [ ] Syntax Analysis  
-- [ ] Semantic Analysis  
-- [ ] Code Generation
+- [ ] [Syntax Analysis](#2-Syntax-Analisys)
+- [ ] [Semantic Analysis](#3-Semantic-Analisys)
+- [ ] [Code Generation](#4-Code-Generation)
 
 ---
 
