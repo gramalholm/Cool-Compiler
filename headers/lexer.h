@@ -89,12 +89,12 @@ class StrToken : public Lextoken {
 };
 
 //valores numericos
-class numToken : public Lextoken {
+class NumToken : public Lextoken {
     private:
         int token_num;
 
     public:
-        numToken(lextoken_type t, int num);
+        NumToken(lextoken_type t, int num);
         int get_token_num() const;
 };
 

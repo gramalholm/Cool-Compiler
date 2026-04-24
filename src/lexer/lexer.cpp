@@ -207,9 +207,14 @@ std::unique_ptr<Lextoken> Lexer::scan() {
         if(str_iterator != str_table.end()){
              return std::make_unique<StrToken>(str_iterator->second, aux_str);
         }   
-
-        str_table[aux_str] = lextoken_type::identifier_token; 
-        return std::make_unique<StrToken>(lextoken_type::identifier_token, aux_str);
+        
+        if(std::isupper(static_cast<unsigned char>(aux_str[0]))){
+            str_table[aux_str] = lextoken_type::typeID_token; 
+            return std::make_unique<StrToken>(lextoken_type::typeID_token, aux_str);
+        }else{
+            str_table[aux_str] = lextoken_type::objectID_token;
+            return std::make_unique<StrToken>(lextoken_type::objectID_token, aux_str);
+        }
     }
 
     if(isdigit(peek)){

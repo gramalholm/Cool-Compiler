@@ -10,6 +10,7 @@ add_executable(cool-compiler
     src/main.cpp
     src/lexer/lexer.cpp
     headers/lexer.h
+    headers/parser.h
 )
 
 target_include_directories(cool-compiler PRIVATE
