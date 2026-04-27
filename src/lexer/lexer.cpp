@@ -262,51 +262,45 @@ int NumToken::get_token_num() const {
 
 //so para poder printar bonitinho os operadores e pontuações.
 string Lexer::type_to_string(lextoken_type t) {
-   switch (t)
+  switch (t)
    {
-   case lextoken_type::plus_token:
-    return "+";
-   case lextoken_type::minus_token:
-    return "-";
-   case lextoken_type::star_token:
-    return "*";
-   case lextoken_type::slash_token:
-    return "/";
-   case lextoken_type::dot_token:
-    return ".";
-   case lextoken_type::at_token:
-    return "@";
-   case lextoken_type::assign_token:
-    return "<-";
-   case lextoken_type::equal_token:
-    return "=";
-   case lextoken_type::greater_token:
-    return ">";
-   case lextoken_type::less_token:
-    return "<";
-   case lextoken_type::greater_equal_token:
-    return ">=";
-   case lextoken_type::less_equal_token:
-    return "<=";
-   case lextoken_type::not_equal_token:
-    return "!=";
-   case lextoken_type::semicolon_token:
-    return ";";
-   case lextoken_type::comma_token:
-    return ",";
-   case lextoken_type::colon_token:
-    return ":";
-   case lextoken_type::tilde_token:
-    return "~";
-   case lextoken_type::lparen_token:
-    return "(";
-   case lextoken_type::rparen_token:
-    return ")";
-   case lextoken_type::lbrace_token:
-    return "{";
-   case lextoken_type::rbrace_token:
-    return "}";
+   // operadores
+   case lextoken_type::plus_token: return "+";
+   case lextoken_type::minus_token: return "-";
+   case lextoken_type::star_token: return "*";
+   case lextoken_type::slash_token: return "/";
+   case lextoken_type::lparen_token: return "(";
+   case lextoken_type::rparen_token: return ")";
+   case lextoken_type::lbrace_token: return "{";
+   case lextoken_type::rbrace_token: return "}";
+   case lextoken_type::semicolon_token: return ";";
+   case lextoken_type::colon_token: return ":";
+   case lextoken_type::comma_token: return ",";
+   case lextoken_type::assign_token: return "<-";
+   case lextoken_type::equal_token: return "=";
+
+   // palavras reservadas
+   case lextoken_type::if_token: return "if";
+   case lextoken_type::then_token: return "then";
+   case lextoken_type::else_token: return "else";
+   case lextoken_type::fi_token: return "fi";
+   case lextoken_type::while_token: return "while";
+   case lextoken_type::class_token: return "class";
+   case lextoken_type::let_token: return "let";
+   case lextoken_type::in_kw_token: return "in";
+
+   // identificadores / literais
+   case lextoken_type::objectID_token: return "ID";
+   case lextoken_type::typeID_token: return "TYPE";
+   case lextoken_type::int_token: return "integer";
+   case lextoken_type::string_token: return "string";
+   case lextoken_type::true_token: return "true";
+   case lextoken_type::false_token: return "false";
+
+   // fim de entrada
+   case lextoken_type::eof_token: return "$";
+
    default:
-    throw std::invalid_argument("O token não é um operador ou pontuação.");
+       return "UNKNOWN";
    }
 }
