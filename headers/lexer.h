@@ -8,64 +8,59 @@ using namespace std;
 
 enum class lextoken_type {
     //palavras reservadas
-    class_token, 
-    if_token, 
-    then_token, 
-    else_token, 
+    class_token,
+    if_token,
+    then_token,
+    else_token,
     fi_token,
-    in_kw_token, 
+    in_kw_token,
     inherits_token,
-    isvoid_token, 
-    let_token, 
-    loop_token, 
+    isvoid_token,
+    let_token,
+    loop_token,
     case_token,
     while_token,
-    esac_token, 
-    new_token, 
-    of_token, 
+    esac_token,
+    new_token,
+    of_token,
     not_token,
     pool_token,
     true_token,
     false_token,
-
-    //identificadores, numeros e strings
+    // identificadores, numeros e strings
     identifier_token,
     int_token,
     string_token,
     bool_token,
-
-    //operadores e pontuacao
-    plus_token, // +
-    minus_token, // -
-    star_token, // *
-    slash_token, // /
-    dot_token, // .
-    at_token, // @
-
-    assign_token, // <-
-    equal_token, // =
-    greater_token, // >
-    less_token, // <
-    greater_equal_token, // >=
-    less_equal_token, // <=
-    not_equal_token, // !=
-
-    semicolon_token, // ;
-    comma_token, // ,
-    colon_token, // :
-    tilde_token, // ~
-    lparen_token, // (
-    rparen_token, // )
-    lbrace_token, // {
-    rbrace_token, // }
-
+    // operadores e pontuacao
+    plus_token,
+    minus_token,
+    star_token,
+    slash_token,
+    dot_token,
+    at_token,
+    assign_token,
+    equal_token,
+    greater_token,
+    less_token,
+    greater_equal_token,
+    less_equal_token,
+    not_equal_token,
+    arrow_token,
+    semicolon_token,
+    comma_token,
+    colon_token,
+    tilde_token,
+    lparen_token,
+    rparen_token,
+    lbrace_token,
+    rbrace_token,
     // ERROR e END OF FILE
-    error_token, // token de erro para caracteres não reconhecidos
-    eof_token, // token de fim de arquivo
-
-    //tokens para tipos
-    typeID_token, //começa com letra maiúscula
-    objectID_token, //começa com letra minúscula
+    error_token,
+    eof_token,
+    // tokens para tipos
+    typeID_token,
+    objectID_token,
 };
 //operadores e pontuacao: + - ; ( ) { } =
 class Lextoken{
@@ -110,7 +105,7 @@ class Lexer {
         string type_to_string(lextoken_type t);
         int get_line_num() const;
         std::unique_ptr<Lextoken> scan();
-        Lexer();
+        Lexer(const string& filepath);
 };
 
 #endif
