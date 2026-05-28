@@ -18,7 +18,7 @@ Class List inherits IO {
  *)
 	car() : Int { { abort(); new Int; } };
 
-	cdr() : String { { abort(); new List; } };
+	cdr() : List { { abort(); new List; } };
 
 	rev() : List { cdr() };
 

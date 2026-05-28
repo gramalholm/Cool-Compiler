@@ -101,11 +101,8 @@ void SemanticAnalyzer::collect_classes(Program* root){
 
         bool c_added = st.add_class(cn->name, ci);
 
-        if(c_added){
-            std::cout << "classe adicionada com sucesso" <<std::endl;
-        }else{
-            std::cerr << "Erro ao adicionar classe, classe duplicada" << std::endl;
-        }
+        if(!c_added)
+            error(root->line, "Erro ao adicionar a classe, classe duplicada");
     }
 }
 
