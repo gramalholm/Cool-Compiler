@@ -36,6 +36,7 @@ struct ClassInfo{
     std::string parent;
     std::unordered_map<std::string, MethodInfo> methods; // mapa com todos os metodos da classe
     std::unordered_map<std::string, AttrInfo> attrs; // mapa com todos os atributos da classe
+    int line;
 };
 
 class SymbolTable {
@@ -47,6 +48,7 @@ class SymbolTable {
         Symbol* lookup(const std::string& name); // nullptr se não achar
         ClassInfo* lookup_class(const std::string& name);
         bool exists_in_current_scope(const std::string& name); // verifica se tal simbolo etc existe nesse escopo atual
+        std::vector<ClassInfo*> get_all_classes();
     private:
         std::vector<std::unordered_map<std::string, Symbol>> scopes;
         std::unordered_map<std::string, ClassInfo> class_table;

@@ -16,7 +16,8 @@ using std::map;
 using std::stack;
 using std::pair; 
  
-/*  Sites, artigos etc para entender como implementar e teoria de cada parte:
+/* 
+    Sites, artigos etc para entender como implementar e teoria de cada parte:
     PARSING SLR NO GERAL) https://web.stanford.edu/class/archive/cs/cs143/cs143.1156/handouts/parsing.pdf
     FIRST E FOLLOW) https://www.geeksforgeeks.org/compiler-design/why-first-and-follow-in-compiler-design/
     CLOSURE e GOTOSTATE) https://www.geeksforgeeks.org/compiler-design/bottom-up-or-shift-reduce-parsers-set-2/ 
@@ -45,7 +46,7 @@ struct Item {
  
 struct State{
     set<Item> itens; // itens do estado
-    map<string,int> transitions; //transição entre 2 estados (int id do proximo estaod) baseado em não terminais e terminais (string)
+    map<string,int> transitions; //transição entre 2 estados (int id do proximo estado) baseado em não terminais e terminais (string)
  
     bool operator==(const State& other) const {
         return itens == other.itens;
@@ -56,15 +57,7 @@ struct StackSymbol{
     string type;
     string lexem;
 };
- 
-/* Gabriel para Léo:
-    Aqui basicamente a gente pensa que a arvore sintatica abstrata nao pode ter um nó que faça todas as
-    operações, então pra cada nao terminal e suas variações eu criei uma classe:
-        Os não terminais herdam do ASTNode
-        As variações dos não terminais herdam de seus respectivos não terminais
-    (qualquer duvida é so olhar na gramatica que eu extendi no parser.cpp ou olhar o cool manual)
-*/
- 
+
 // ========================= Nó básico para gerar a arvore e poder codar os nós específicos por herança ========================
 class ASTNode{
     public: 
@@ -338,7 +331,7 @@ class SLRParser {
         string filepath;
         vector<Production> gramatica;
         set<string> nonterminals;
-        set<string> terminals;
+        set<string> terminals; 
         string start_symbol;
         unordered_map<string, set<string>> first_sets; // guarda todos os first sets de cada simbolo
         unordered_map<string, set<string>> follow_sets; // guarda todos os follow sets de cada simbolo
@@ -362,7 +355,7 @@ class SLRParser {
         void build_canonical_collection(); //feito
         void build_parsing_table(); //feito
         int find_production_index(const Item& I); //feito
-        ASTNode* build_ast_node(int production_index, vector<ASTNode*>& children);
+        ASTNode* build_ast_node(int production_index, vector<ASTNode*>& children, int line);
 };
  
 #endif

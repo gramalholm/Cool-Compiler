@@ -12,8 +12,12 @@ add_executable(cool-compiler
     src/main.cpp
     src/lexer/lexer.cpp
     src/parser/parser.cpp
+    src/semantic/semantic.cpp
+    src/sym_table/sym_table.cpp
     headers/lexer.h
     headers/parser.h
+    headers/semantic.h
+    headers/sym_table.h
 )
 
 target_include_directories(cool-compiler PRIVATE

@@ -421,6 +421,7 @@ void SLRParser::parsing(){
 
         if(act[0] == 's'){
             int n = stoi(act.substr(1));
+            int token_line = lexer.get_line_num();
             string lexeme;
 
             if(auto strTok = dynamic_cast<StrToken*>(lookahead.get())){
@@ -432,15 +433,25 @@ void SLRParser::parsing(){
             }
 
             if(token == "string"){
-                ast_stack.push(new StringExpr(lexeme));
+                auto* node = new StringExpr(lexeme);
+                node->line = token_line;
+                ast_stack.push(node);
             } else if(token == "ID"){
-                ast_stack.push(new IdExpr(lexeme));
+                auto* node = new IdExpr(lexeme);
+                node->line = token_line;
+                ast_stack.push(node);
             } else if(token == "TYPE"){
-                ast_stack.push(new IdExpr(lexeme));
+                auto* node = new IdExpr(lexeme);
+                node->line = token_line;
+                ast_stack.push(node);
             } else if(token == "integer"){
-                ast_stack.push(new IntExpr(stoi(lexeme)));
+                auto* node = new IntExpr(stoi(lexeme));
+                node->line = token_line;
+                ast_stack.push(node);
             } else if(token == "true" || token == "false"){
-                ast_stack.push(new BoolExpr(lexeme == "true"));
+                auto* node = new BoolExpr(lexeme == "true");
+                node->line = token_line;
+                ast_stack.push(node);
             }
 
             symbol_stack.push(StackSymbol{token, lexeme});
@@ -482,7 +493,7 @@ void SLRParser::parsing(){
 
             reverse(children.begin(), children.end());
 
-            ASTNode* node = build_ast_node(n, children);
+            ASTNode* node = build_ast_node(n, children, lexer.get_line_num());
             ast_stack.push(node);
 
             int q_state = state_stack.top();
@@ -509,16 +520,33 @@ void SLRParser::parsing(){
     }
 }
 
-ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& children){
+ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& children, int line){
     auto& prod = gramatica[production_index];
     const string& lhs = prod.lhs;
     const vector<string>& rhs = prod.rhs;
+    int resolved_line = line;
+
+    if(resolved_line <= 0){
+        for(auto* child : children){
+            if(child != nullptr && child->line > 0){
+                resolved_line = child->line;
+                break;
+            }
+        }
+    }
+
+    auto mark = [&](ASTNode* node) -> ASTNode* {
+        if(node != nullptr && node->line == 0){
+            node->line = resolved_line;
+        }
+        return node;
+    };
 
     // cout << "[ast] r" << production_index << " " << lhs << " children=" << children.size() << endl;
 
     if(rhs.size() == 0){
         if (lhs == "args") return new ArgsNode({});
-        if (lhs == "formal_list") return new FormalListNode({});
+        if (lhs == "formal_list") return mark(new FormalListNode({}));
         if (lhs == "assign_opt") return nullptr;
         if (lhs == "inherits_opt") return nullptr;
         return nullptr;
@@ -531,7 +559,7 @@ ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& child
 
         case 1: { 
             auto* lista = static_cast<ClassListNode*>(children[0]);
-            return new Program(lista->classes);
+            return mark(new Program(lista->classes));
         }
 
         case 2: { 
@@ -551,7 +579,7 @@ ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& child
                 parent = static_cast<IdExpr*>(children[1])->name;
 
             auto* fl = static_cast<FeatureListNode*>(children[2]);
-            return new ClassNode(name, parent, fl->features);
+            return mark(new ClassNode(name, parent, fl->features));
         }
 
         case 5: 
@@ -571,21 +599,21 @@ ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& child
             auto* formals = static_cast<FormalListNode*>(children[1]);
             string type = static_cast<IdExpr*>(children[2])->name;
             auto* body = static_cast<Expr*>(children[3]);
-            return new MethodFeature(name, formals->formals, type, body);
+            return mark(new MethodFeature(name, formals->formals, type, body));
         }
 
         case 10: { 
             string name = static_cast<IdExpr*>(children[0])->name;
             string type = static_cast<IdExpr*>(children[1])->name;
             Expr* init = children[2] ? static_cast<Expr*>(children[2]) : nullptr;
-            return new AttrFeature(name, type, init);
+            return mark(new AttrFeature(name, type, init));
         }
 
         case 11: return children[0];
         case 13: return children[0];
 
         case 15:
-            return new FormalListNode({static_cast<Formal*>(children[0])});
+            return mark(new FormalListNode({static_cast<Formal*>(children[0])}));
 
         case 16: {
             auto* list = static_cast<FormalListNode*>(children[0]);
@@ -594,79 +622,79 @@ ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& child
         }
 
         case 17: {
-            return new Formal(
+            return mark(new Formal(
                 static_cast<IdExpr*>(children[0])->name,
                 static_cast<IdExpr*>(children[1])->name
-            );
+            ));
         }
 
         case 18: return children[0];
 
         case 19:
-            return new AssignExpr(
+            return mark(new AssignExpr(
                 static_cast<IdExpr*>(children[0])->name,
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 20: return children[0];
 
         case 21:
-            return new BinExpr(LT,
+            return mark(new BinExpr(LT,
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 22:
-            return new BinExpr(LE,
+            return mark(new BinExpr(LE,
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 23:
-            return new BinExpr(EQ,
+            return mark(new BinExpr(EQ,
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 24: return children[0];
 
         case 25:
-            return new BinExpr(PLUS,
+            return mark(new BinExpr(PLUS,
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 26:
-            return new BinExpr(MINUS,
+            return mark(new BinExpr(MINUS,
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 27:
             return children[0];
 
         case 28:
-            return new BinExpr(MUL,
+            return mark(new BinExpr(MUL,
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 29:
-            return new BinExpr(DIV,
+            return mark(new BinExpr(DIV,
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 30: return children[0];
 
         case 31:
-            return new IsVoidExpr(static_cast<Expr*>(children[0]));
+            return mark(new IsVoidExpr(static_cast<Expr*>(children[0])));
 
         case 32:
-            return new NotExpr(static_cast<Expr*>(children[0]));
+            return mark(new NotExpr(static_cast<Expr*>(children[0])));
 
         case 33:
-            return new NegExpr(static_cast<Expr*>(children[0]));
+            return mark(new NegExpr(static_cast<Expr*>(children[0])));
 
         case 34: return children[0];
 
@@ -674,19 +702,19 @@ ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& child
             return children[0];
 
         case 36:
-            return new CallExpr(
+            return mark(new CallExpr(
                 static_cast<Expr*>(children[0]),
                 static_cast<IdExpr*>(children[1])->name,
                 static_cast<ArgsNode*>(children[2])->args
-            );
+            ));
 
         case 37:
-            return new CallExpr(
+            return mark(new CallExpr(
                 static_cast<Expr*>(children[0]),
                 static_cast<IdExpr*>(children[1])->name,
                 static_cast<IdExpr*>(children[2])->name,
                 static_cast<ArgsNode*>(children[3])->args
-            );
+            ));
 
         case 38:
         case 39:
@@ -699,39 +727,39 @@ ASTNode* SLRParser::build_ast_node(int production_index, vector<ASTNode*>& child
             return children[0];
 
         case 44:
-            return new IfExpr(
+            return mark(new IfExpr(
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1]),
                 static_cast<Expr*>(children[2])
-            );
+            ));
 
         case 45:
-            return new WhileExpr(
+            return mark(new WhileExpr(
                 static_cast<Expr*>(children[0]),
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 46: return children[0];
 
         case 47:
-            return new LetExpr(
+            return mark(new LetExpr(
                 static_cast<LetListNode*>(children[0])->bindings,
                 static_cast<Expr*>(children[1])
-            );
+            ));
 
         case 48:
-            return new CaseExpr(
+            return mark(new CaseExpr(
                 static_cast<Expr*>(children[0]),
                 static_cast<CaseListNode*>(children[1])->branches
-            );
+            ));
 
         case 49:
-            return new NewExpr(static_cast<IdExpr*>(children[0])->name);
+            return mark(new NewExpr(static_cast<IdExpr*>(children[0])->name));
 
         case 50: return children[0];
 
         case 51:
-            return new BlockExpr({static_cast<Expr*>(children[0])});
+            return mark(new BlockExpr({static_cast<Expr*>(children[0])}));
 
         case 52: {
             auto* block = static_cast<BlockExpr*>(children[0]);

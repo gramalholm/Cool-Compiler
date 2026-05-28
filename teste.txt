@@ -67,7 +67,7 @@ class List {
  *  cell.
  *)
 
-Class class inherits List {
+Class A inherits List {
 
    car : Int;	-- The element in this list cell
 
