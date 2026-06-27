@@ -1,3 +1,0 @@
-class A {
-  f(x : Int) : Int { x };
-};

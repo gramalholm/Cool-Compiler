@@ -131,7 +131,7 @@ void SemanticAnalyzer::check_inheritance(){
         if(!c->parent.empty() && st.lookup_class(c->parent) == nullptr){
             error(c->line, "Classe " + 
                 c->name + "herda da Classe "
-                + c->parent + "que não existe");
+                + c->parent + " que não existe");
             continue;
         }else{
             std::set<string> visited;
@@ -221,9 +221,7 @@ void SemanticAnalyzer::check_method(MethodFeature* mf){
     curr_mtd_return = mf->return_type;
 
     string body_type = check_expr(mf->body);
-    string expected_return = curr_mtd_return == "SELF_TYPE" && curr_class != nullptr
-        ? curr_class->name
-        : curr_mtd_return;
+    string expected_return = curr_mtd_return;
     if(!is_subtype(body_type, expected_return))
         error(mf->body->line, "tipo de retorno '" + body_type + "' incompatível com '" + curr_mtd_return + "'");
 
@@ -401,6 +399,7 @@ string SemanticAnalyzer::check_expr(Expr* e){
         }
         return ex->type;
     }else if(auto* ex = dynamic_cast<LetExpr*>(e)){
+        st.enter_scope();
         for(auto& b: ex->bindings){
             if(b.init != nullptr){
                 string init_type = check_expr(b.init);
@@ -409,20 +408,18 @@ string SemanticAnalyzer::check_expr(Expr* e){
                 }
             } else {
             }
-            st.enter_scope();
             if(!st.add(b.name, {b.type, "let", b.init != nullptr ? b.init->line : 0})){
                 error(b.init != nullptr ? b.init->line : 0, "Variável '" + b.name + "' já foi declarada neste let");
             }
         }
         string ce = check_expr(ex->body);
-        for(int i = 0; i < ex->bindings.size(); i++){
-            st.exit_scope();
-        }
+        st.exit_scope();
         return ce;
     }else if(auto* ex = dynamic_cast<CaseExpr*>(e)){
         string ce = check_expr(ex->subject);
         std::set<string> branch_types;
-        string lca = "Object";
+        string lca;
+        bool first_branch = true;
         for(auto& b: ex->branches){
             if(branch_types.count(b.type)){
                 error(b.expr->line, "Tipo '" + b.type + "' já foi usado em outro branch do case");
@@ -432,7 +429,12 @@ string SemanticAnalyzer::check_expr(Expr* e){
             st.enter_scope();
             st.add(b.name, {b.type, "case", b.expr->line});
             string cex = check_expr(b.expr);
-            lca = least_comum_ancestor(lca, cex);
+            if(first_branch){
+                lca = cex;
+                first_branch = false;
+            }else{
+                lca = least_comum_ancestor(lca, cex);
+            }
             st.exit_scope();
         }
         return lca;

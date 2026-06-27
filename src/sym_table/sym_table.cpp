@@ -1,4 +1,5 @@
 #include "../../headers/sym_table.h"
+
 /*
     Adiciona classe a tabela de classes
 */
