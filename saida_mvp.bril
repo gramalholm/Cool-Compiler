@@ -1,0 +1,220 @@
+@Main_factorial(self: int, n: int): int {
+  v1: int = const 1;
+  v0: int = id v1;
+  v3: int = const 1;
+  v2: int = id v3;
+  jmp .lbl0;
+.lbl0:
+  v4: bool = le v2 n;
+  br v4 .lbl1 .lbl2;
+.lbl1:
+  v5: int = mul v0 v2;
+  v0: int = id v5;
+  v6: int = const 1;
+  v7: int = add v2 v6;
+  v2: int = id v7;
+  jmp .lbl0;
+.lbl2:
+  v8: int = const 0;
+  ret v0;
+}
+
+@Main_soma_ate(self: int, n: int): int {
+  v1: int = const 0;
+  v0: int = id v1;
+  v3: int = const 0;
+  v2: int = id v3;
+  jmp .lbl0;
+.lbl0:
+  v4: bool = le v0 n;
+  br v4 .lbl1 .lbl2;
+.lbl1:
+  v5: int = add v2 v0;
+  v2: int = id v5;
+  v6: int = const 1;
+  v7: int = add v0 v6;
+  v0: int = id v7;
+  jmp .lbl0;
+.lbl2:
+  v8: int = const 0;
+  ret v2;
+}
+
+@Main_is_even(self: int, x: int): bool {
+  v0: int = const 0;
+  v1: bool = lt x v0;
+  br v1 .lbl0 .lbl1;
+.lbl0:
+  v3: int = const 0;
+  v4: int = sub v3 x;
+  v5: bool = call @Main_is_even self v4;
+  v2: bool = id v5;
+  jmp .lbl2;
+.lbl1:
+  v6: int = const 0;
+  v7: bool = eq v6 x;
+  br v7 .lbl3 .lbl4;
+.lbl3:
+  v9: bool = const true;
+  v8: bool = id v9;
+  jmp .lbl5;
+.lbl4:
+  v10: int = const 1;
+  v11: bool = eq v10 x;
+  br v11 .lbl6 .lbl7;
+.lbl6:
+  v13: bool = const false;
+  v12: bool = id v13;
+  jmp .lbl8;
+.lbl7:
+  v14: int = const 2;
+  v15: int = sub x v14;
+  v16: bool = call @Main_is_even self v15;
+  v12: bool = id v16;
+  jmp .lbl8;
+.lbl8:
+  v8: bool = id v12;
+  jmp .lbl5;
+.lbl5:
+  v2: bool = id v8;
+  jmp .lbl2;
+.lbl2:
+  ret v2;
+}
+
+@Main_div3(self: int, x: int): bool {
+  v0: int = const 0;
+  v1: bool = lt x v0;
+  br v1 .lbl0 .lbl1;
+.lbl0:
+  v3: int = const 0;
+  v4: int = sub v3 x;
+  v5: bool = call @Main_div3 self v4;
+  v2: bool = id v5;
+  jmp .lbl2;
+.lbl1:
+  v6: int = const 0;
+  v7: bool = eq v6 x;
+  br v7 .lbl3 .lbl4;
+.lbl3:
+  v9: bool = const true;
+  v8: bool = id v9;
+  jmp .lbl5;
+.lbl4:
+  v10: int = const 1;
+  v11: bool = eq v10 x;
+  br v11 .lbl6 .lbl7;
+.lbl6:
+  v13: bool = const false;
+  v12: bool = id v13;
+  jmp .lbl8;
+.lbl7:
+  v14: int = const 2;
+  v15: bool = eq v14 x;
+  br v15 .lbl9 .lbl10;
+.lbl9:
+  v17: bool = const false;
+  v16: bool = id v17;
+  jmp .lbl11;
+.lbl10:
+  v18: int = const 3;
+  v19: int = sub x v18;
+  v20: bool = call @Main_div3 self v19;
+  v16: bool = id v20;
+  jmp .lbl11;
+.lbl11:
+  v12: bool = id v16;
+  jmp .lbl8;
+.lbl8:
+  v8: bool = id v12;
+  jmp .lbl5;
+.lbl5:
+  v2: bool = id v8;
+  jmp .lbl2;
+.lbl2:
+  ret v2;
+}
+
+@Main_quadrado(self: int, n: int): int {
+  v0: int = mul n n;
+  ret v0;
+}
+
+@Main_cubo(self: int, n: int): int {
+  v0: int = mul n n;
+  v1: int = mul v0 n;
+  ret v1;
+}
+
+@main {
+  v0: int = const 5;
+  v1: int = call @Main_factorial self v0;
+  print v1;
+  v2: int = const 10;
+  v3: int = call @Main_soma_ate self v2;
+  print v3;
+  v4: int = const 4;
+  v5: bool = call @Main_is_even self v4;
+  br v5 .lbl0 .lbl1;
+.lbl0:
+  v7: int = const 1;
+  print v7;
+  v6: int = id self;
+  jmp .lbl2;
+.lbl1:
+  v8: int = const 0;
+  print v8;
+  v6: int = id self;
+  jmp .lbl2;
+.lbl2:
+  v9: int = const 7;
+  v10: bool = call @Main_is_even self v9;
+  br v10 .lbl3 .lbl4;
+.lbl3:
+  v12: int = const 1;
+  print v12;
+  v11: int = id self;
+  jmp .lbl5;
+.lbl4:
+  v13: int = const 0;
+  print v13;
+  v11: int = id self;
+  jmp .lbl5;
+.lbl5:
+  v14: int = const 9;
+  v15: bool = call @Main_div3 self v14;
+  br v15 .lbl6 .lbl7;
+.lbl6:
+  v17: int = const 1;
+  print v17;
+  v16: int = id self;
+  jmp .lbl8;
+.lbl7:
+  v18: int = const 0;
+  print v18;
+  v16: int = id self;
+  jmp .lbl8;
+.lbl8:
+  v19: int = const 7;
+  v20: bool = call @Main_div3 self v19;
+  br v20 .lbl9 .lbl10;
+.lbl9:
+  v22: int = const 1;
+  print v22;
+  v21: int = id self;
+  jmp .lbl11;
+.lbl10:
+  v23: int = const 0;
+  print v23;
+  v21: int = id self;
+  jmp .lbl11;
+.lbl11:
+  v24: int = const 3;
+  v25: int = call @Main_quadrado self v24;
+  v26: int = const 2;
+  v27: int = call @Main_cubo self v26;
+  v28: int = add v25 v27;
+  print v28;
+  ret;
+}
+

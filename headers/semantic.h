@@ -14,6 +14,7 @@ class SemanticAnalyzer{
         void check_method(MethodFeature* mf); //fazer
         void check_attr(AttrFeature* af);// fazer
         string check_expr(Expr* e);
+        string check_expr_inner(Expr* e); // implementação real; check_expr é o wrapper que anota inferred_type
         bool is_subtype(const string& curr, const string&findout);
         string least_comum_ancestor(const string& a, const string& b);
         MethodInfo* lookup_method(const string& classe, const string& method);

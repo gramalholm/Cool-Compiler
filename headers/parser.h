@@ -81,6 +81,10 @@ class Feature : public ASTNode{
 // ======================== expr em si ========================
 class Expr : public ASTNode{
     public:
+        // Preenchido pelo SemanticAnalyzer::check_expr após a análise.
+        // Contém o tipo Cool inferido (ex: "Int", "Bool", "CellularAutomaton").
+        // Usado pelo BrilCodeGen para dispatch correto em CallExpr e tipagem em AssignExpr.
+        std::string inferred_type;
         virtual ~Expr() = default;
 };
  

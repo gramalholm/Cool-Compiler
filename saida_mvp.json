@@ -1,0 +1,1426 @@
+{
+  "functions": [
+    {
+      "args": [
+        {
+          "name": "self",
+          "type": "int"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v1"
+          ],
+          "dest": "v0",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "dest": "v3",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl0"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl0"
+        },
+        {
+          "args": [
+            "v2",
+            "n"
+          ],
+          "dest": "v4",
+          "op": "le",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v4"
+          ],
+          "labels": [
+            "lbl1",
+            "lbl2"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl1"
+        },
+        {
+          "args": [
+            "v0",
+            "v2"
+          ],
+          "dest": "v5",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v5"
+          ],
+          "dest": "v0",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "dest": "v6",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v2",
+            "v6"
+          ],
+          "dest": "v7",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v7"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl0"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl2"
+        },
+        {
+          "dest": "v8",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v0"
+          ],
+          "op": "ret"
+        }
+      ],
+      "name": "Main_factorial",
+      "type": "int"
+    },
+    {
+      "args": [
+        {
+          "name": "self",
+          "type": "int"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "dest": "v1",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v1"
+          ],
+          "dest": "v0",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "dest": "v3",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl0"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl0"
+        },
+        {
+          "args": [
+            "v0",
+            "n"
+          ],
+          "dest": "v4",
+          "op": "le",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v4"
+          ],
+          "labels": [
+            "lbl1",
+            "lbl2"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl1"
+        },
+        {
+          "args": [
+            "v2",
+            "v0"
+          ],
+          "dest": "v5",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v5"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "dest": "v6",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v0",
+            "v6"
+          ],
+          "dest": "v7",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v7"
+          ],
+          "dest": "v0",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl0"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl2"
+        },
+        {
+          "dest": "v8",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "ret"
+        }
+      ],
+      "name": "Main_soma_ate",
+      "type": "int"
+    },
+    {
+      "args": [
+        {
+          "name": "self",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "x",
+            "v0"
+          ],
+          "dest": "v1",
+          "op": "lt",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v1"
+          ],
+          "labels": [
+            "lbl0",
+            "lbl1"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl0"
+        },
+        {
+          "dest": "v3",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v3",
+            "x"
+          ],
+          "dest": "v4",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "args": [
+            "self",
+            "v4"
+          ],
+          "dest": "v5",
+          "funcs": [
+            "Main_is_even"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v5"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl2"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl1"
+        },
+        {
+          "dest": "v6",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v6",
+            "x"
+          ],
+          "dest": "v7",
+          "op": "eq",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v7"
+          ],
+          "labels": [
+            "lbl3",
+            "lbl4"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl3"
+        },
+        {
+          "dest": "v9",
+          "op": "const",
+          "type": "bool",
+          "value": true
+        },
+        {
+          "args": [
+            "v9"
+          ],
+          "dest": "v8",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl5"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl4"
+        },
+        {
+          "dest": "v10",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v10",
+            "x"
+          ],
+          "dest": "v11",
+          "op": "eq",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v11"
+          ],
+          "labels": [
+            "lbl6",
+            "lbl7"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl6"
+        },
+        {
+          "dest": "v13",
+          "op": "const",
+          "type": "bool",
+          "value": false
+        },
+        {
+          "args": [
+            "v13"
+          ],
+          "dest": "v12",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl8"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl7"
+        },
+        {
+          "dest": "v14",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "args": [
+            "x",
+            "v14"
+          ],
+          "dest": "v15",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "args": [
+            "self",
+            "v15"
+          ],
+          "dest": "v16",
+          "funcs": [
+            "Main_is_even"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v16"
+          ],
+          "dest": "v12",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl8"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl8"
+        },
+        {
+          "args": [
+            "v12"
+          ],
+          "dest": "v8",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl5"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl5"
+        },
+        {
+          "args": [
+            "v8"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl2"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl2"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "ret"
+        }
+      ],
+      "name": "Main_is_even",
+      "type": "bool"
+    },
+    {
+      "args": [
+        {
+          "name": "self",
+          "type": "int"
+        },
+        {
+          "name": "x",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "x",
+            "v0"
+          ],
+          "dest": "v1",
+          "op": "lt",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v1"
+          ],
+          "labels": [
+            "lbl0",
+            "lbl1"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl0"
+        },
+        {
+          "dest": "v3",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v3",
+            "x"
+          ],
+          "dest": "v4",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "args": [
+            "self",
+            "v4"
+          ],
+          "dest": "v5",
+          "funcs": [
+            "Main_div3"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v5"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl2"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl1"
+        },
+        {
+          "dest": "v6",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v6",
+            "x"
+          ],
+          "dest": "v7",
+          "op": "eq",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v7"
+          ],
+          "labels": [
+            "lbl3",
+            "lbl4"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl3"
+        },
+        {
+          "dest": "v9",
+          "op": "const",
+          "type": "bool",
+          "value": true
+        },
+        {
+          "args": [
+            "v9"
+          ],
+          "dest": "v8",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl5"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl4"
+        },
+        {
+          "dest": "v10",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v10",
+            "x"
+          ],
+          "dest": "v11",
+          "op": "eq",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v11"
+          ],
+          "labels": [
+            "lbl6",
+            "lbl7"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl6"
+        },
+        {
+          "dest": "v13",
+          "op": "const",
+          "type": "bool",
+          "value": false
+        },
+        {
+          "args": [
+            "v13"
+          ],
+          "dest": "v12",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl8"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl7"
+        },
+        {
+          "dest": "v14",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "args": [
+            "v14",
+            "x"
+          ],
+          "dest": "v15",
+          "op": "eq",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v15"
+          ],
+          "labels": [
+            "lbl9",
+            "lbl10"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl9"
+        },
+        {
+          "dest": "v17",
+          "op": "const",
+          "type": "bool",
+          "value": false
+        },
+        {
+          "args": [
+            "v17"
+          ],
+          "dest": "v16",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl11"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl10"
+        },
+        {
+          "dest": "v18",
+          "op": "const",
+          "type": "int",
+          "value": 3
+        },
+        {
+          "args": [
+            "x",
+            "v18"
+          ],
+          "dest": "v19",
+          "op": "sub",
+          "type": "int"
+        },
+        {
+          "args": [
+            "self",
+            "v19"
+          ],
+          "dest": "v20",
+          "funcs": [
+            "Main_div3"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v20"
+          ],
+          "dest": "v16",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl11"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl11"
+        },
+        {
+          "args": [
+            "v16"
+          ],
+          "dest": "v12",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl8"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl8"
+        },
+        {
+          "args": [
+            "v12"
+          ],
+          "dest": "v8",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl5"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl5"
+        },
+        {
+          "args": [
+            "v8"
+          ],
+          "dest": "v2",
+          "op": "id",
+          "type": "bool"
+        },
+        {
+          "labels": [
+            "lbl2"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl2"
+        },
+        {
+          "args": [
+            "v2"
+          ],
+          "op": "ret"
+        }
+      ],
+      "name": "Main_div3",
+      "type": "bool"
+    },
+    {
+      "args": [
+        {
+          "name": "self",
+          "type": "int"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "args": [
+            "n",
+            "n"
+          ],
+          "dest": "v0",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v0"
+          ],
+          "op": "ret"
+        }
+      ],
+      "name": "Main_quadrado",
+      "type": "int"
+    },
+    {
+      "args": [
+        {
+          "name": "self",
+          "type": "int"
+        },
+        {
+          "name": "n",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "args": [
+            "n",
+            "n"
+          ],
+          "dest": "v0",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v0",
+            "n"
+          ],
+          "dest": "v1",
+          "op": "mul",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v1"
+          ],
+          "op": "ret"
+        }
+      ],
+      "name": "Main_cubo",
+      "type": "int"
+    },
+    {
+      "instrs": [
+        {
+          "dest": "v0",
+          "op": "const",
+          "type": "int",
+          "value": 5
+        },
+        {
+          "args": [
+            "self",
+            "v0"
+          ],
+          "dest": "v1",
+          "funcs": [
+            "Main_factorial"
+          ],
+          "op": "call",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v1"
+          ],
+          "op": "print"
+        },
+        {
+          "dest": "v2",
+          "op": "const",
+          "type": "int",
+          "value": 10
+        },
+        {
+          "args": [
+            "self",
+            "v2"
+          ],
+          "dest": "v3",
+          "funcs": [
+            "Main_soma_ate"
+          ],
+          "op": "call",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v3"
+          ],
+          "op": "print"
+        },
+        {
+          "dest": "v4",
+          "op": "const",
+          "type": "int",
+          "value": 4
+        },
+        {
+          "args": [
+            "self",
+            "v4"
+          ],
+          "dest": "v5",
+          "funcs": [
+            "Main_is_even"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v5"
+          ],
+          "labels": [
+            "lbl0",
+            "lbl1"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl0"
+        },
+        {
+          "dest": "v7",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v7"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v6",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl2"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl1"
+        },
+        {
+          "dest": "v8",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v8"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v6",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl2"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl2"
+        },
+        {
+          "dest": "v9",
+          "op": "const",
+          "type": "int",
+          "value": 7
+        },
+        {
+          "args": [
+            "self",
+            "v9"
+          ],
+          "dest": "v10",
+          "funcs": [
+            "Main_is_even"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v10"
+          ],
+          "labels": [
+            "lbl3",
+            "lbl4"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl3"
+        },
+        {
+          "dest": "v12",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v12"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v11",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl5"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl4"
+        },
+        {
+          "dest": "v13",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v13"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v11",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl5"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl5"
+        },
+        {
+          "dest": "v14",
+          "op": "const",
+          "type": "int",
+          "value": 9
+        },
+        {
+          "args": [
+            "self",
+            "v14"
+          ],
+          "dest": "v15",
+          "funcs": [
+            "Main_div3"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v15"
+          ],
+          "labels": [
+            "lbl6",
+            "lbl7"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl6"
+        },
+        {
+          "dest": "v17",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v17"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v16",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl8"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl7"
+        },
+        {
+          "dest": "v18",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v18"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v16",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl8"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl8"
+        },
+        {
+          "dest": "v19",
+          "op": "const",
+          "type": "int",
+          "value": 7
+        },
+        {
+          "args": [
+            "self",
+            "v19"
+          ],
+          "dest": "v20",
+          "funcs": [
+            "Main_div3"
+          ],
+          "op": "call",
+          "type": "bool"
+        },
+        {
+          "args": [
+            "v20"
+          ],
+          "labels": [
+            "lbl9",
+            "lbl10"
+          ],
+          "op": "br"
+        },
+        {
+          "label": "lbl9"
+        },
+        {
+          "dest": "v22",
+          "op": "const",
+          "type": "int",
+          "value": 1
+        },
+        {
+          "args": [
+            "v22"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v21",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl11"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl10"
+        },
+        {
+          "dest": "v23",
+          "op": "const",
+          "type": "int",
+          "value": 0
+        },
+        {
+          "args": [
+            "v23"
+          ],
+          "op": "print"
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "dest": "v21",
+          "op": "id",
+          "type": "int"
+        },
+        {
+          "labels": [
+            "lbl11"
+          ],
+          "op": "jmp"
+        },
+        {
+          "label": "lbl11"
+        },
+        {
+          "dest": "v24",
+          "op": "const",
+          "type": "int",
+          "value": 3
+        },
+        {
+          "args": [
+            "self",
+            "v24"
+          ],
+          "dest": "v25",
+          "funcs": [
+            "Main_quadrado"
+          ],
+          "op": "call",
+          "type": "int"
+        },
+        {
+          "dest": "v26",
+          "op": "const",
+          "type": "int",
+          "value": 2
+        },
+        {
+          "args": [
+            "self",
+            "v26"
+          ],
+          "dest": "v27",
+          "funcs": [
+            "Main_cubo"
+          ],
+          "op": "call",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v25",
+            "v27"
+          ],
+          "dest": "v28",
+          "op": "add",
+          "type": "int"
+        },
+        {
+          "args": [
+            "v28"
+          ],
+          "op": "print"
+        },
+        {
+          "op": "ret"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

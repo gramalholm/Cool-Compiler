@@ -252,7 +252,19 @@ void SemanticAnalyzer::check_attr(AttrFeature* af){
 
         é a função mais importante pois aqui fazemos a verificação de tipos do programa
 */
-string SemanticAnalyzer::check_expr(Expr* e){
+// ─────────────────────────────────────────────────────────────────────────────
+// Wrapper público: delega para check_expr_inner e anota o tipo inferido no nó.
+// Todas as chamadas recursivas internas chamam este wrapper, garantindo que
+// TODOS os sub-nós de expressão recebam inferred_type preenchido.
+// ─────────────────────────────────────────────────────────────────────────────
+string SemanticAnalyzer::check_expr(Expr* e) {
+    if (!e) return "";
+    string t = check_expr_inner(e);
+    e->inferred_type = t;   // ← preenche o campo usado pelo BrilCodeGen
+    return t;
+}
+
+string SemanticAnalyzer::check_expr_inner(Expr* e){
     if(auto* ex = dynamic_cast<IntExpr*>(e)){
         return "Int";
     }else if(auto* ex = dynamic_cast<StringExpr*>(e)){

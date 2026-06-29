@@ -1,0 +1,82 @@
+(*
+   teste_mvp.cool — MVP do compilador Cool -> Bril
+   Sintaxe baseada nos padrões do teste.txt (autômato celular) que
+   o parser SLR aceita: let aninhados entre parênteses, blocks com {}.
+
+   Resultados esperados (saída de out_int, um por linha):
+     120   <- factorial(5)
+      55   <- soma_ate(10)
+       1   <- is_even(4)  = true
+       0   <- is_even(7)  = false
+       1   <- div3(9)     = true
+       0   <- div3(7)     = false
+      17   <- quadrado(3) + cubo(2) = 9 + 8
+*)
+
+class Main inherits IO {
+
+    factorial(n : Int) : Int {
+        (let x : Int <- 1 in
+        (let y : Int <- 1 in
+            {
+                while y <= n loop
+                    {
+                        x <- x * y;
+                        y <- y + 1;
+                    }
+                pool;
+                x;
+            }
+        ))
+    };
+
+    soma_ate(n : Int) : Int {
+        (let i : Int <- 0 in
+        (let acc : Int <- 0 in
+            {
+                while i <= n loop
+                    {
+                        acc <- acc + i;
+                        i <- i + 1;
+                    }
+                pool;
+                acc;
+            }
+        ))
+    };
+
+    is_even(x : Int) : Bool {
+        if x < 0 then is_even(~x) else
+        if 0 = x then true else
+        if 1 = x then false else
+            is_even(x - 2)
+        fi fi fi
+    };
+
+    div3(x : Int) : Bool {
+        if x < 0 then div3(~x) else
+        if 0 = x then true else
+        if 1 = x then false else
+        if 2 = x then false else
+            div3(x - 3)
+        fi fi fi fi
+    };
+
+    quadrado(n : Int) : Int { n * n };
+
+    cubo(n : Int) : Int { n * n * n };
+
+    main() : SELF_TYPE {
+        {
+            out_int(factorial(5));
+            out_int(soma_ate(10));
+            if is_even(4) then out_int(1) else out_int(0) fi;
+            if is_even(7) then out_int(1) else out_int(0) fi;
+            if div3(9) then out_int(1) else out_int(0) fi;
+            if div3(7) then out_int(1) else out_int(0) fi;
+            out_int(quadrado(3) + cubo(2));
+            self;
+        }
+    };
+
+};

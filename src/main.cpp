@@ -1,6 +1,7 @@
 #include "lexer.h"
 #include "../headers/parser.h"
 #include "semantic.h"
+#include "../headers/codegen.h"
 
 #include <iostream>
 #include <clocale>
@@ -29,6 +30,11 @@ int main(int argc, char* argv[]){
 
     if (prog != nullptr) {
         sa->analyze(prog);
+
+        // ── Geração de código Bril (apenas se a semântica passou) ──
+        BrilCodeGen* cg = new BrilCodeGen();
+        cg->generate(prog);
+        delete cg;
     } else {
         cout << "Erro: a raiz da AST nao é Program" << endl;
     }
